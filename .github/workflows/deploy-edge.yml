@@ -1,0 +1,12 @@
+name: Deploy Edge Functions
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm i -g supabase
+      - name: Deploy all functions
+        run: supabase functions deploy --project-ref ${{ secrets.SUPABASE_REF }}
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
